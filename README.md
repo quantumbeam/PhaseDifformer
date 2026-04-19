@@ -1,6 +1,6 @@
 **Enabling single-observation decomposition of multi-phase X-ray diffraction patterns via generative deep learning**  
 Yusei Ito, Naoya Chiba*, Tatsunori Taniai*, Ryo Igarashi, Yuta Suzuki, Kotaro Saito, Yoshitaka Ushiku, and Kanta Ono  
-In *The Thirteenth International Conference on Learning Representations* (ICLR 2025)
+Published in npj computational materials.
 
 # Table of Contents
 - [Citation](#citation)
