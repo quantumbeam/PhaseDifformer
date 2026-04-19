@@ -1,12 +1,22 @@
-### PhaseDifformer: Enabling Single-Observation Decomposition of Multi-phase X-ray Diffraction Patterns via Recursive Diffusion Transformers  
+### PhaseDifformer: Enabling single-observation decomposition of multi-phase X-ray diffraction patterns via generative deep learning
+
+Yusei Ito, Naoya Chiba*, Tatsunori Taniai*, Ryo Igarashi, Yuta Suzuki, Kotaro Saito, Yoshitaka Ushiku, and Kanta Ono  
+Published in npj computational materials (2026).
+
 
 # Table of Contents
+- [Citation](#citation)
 - [Setup a Docker Environment](#setup-a-docker-environment)
 - [Prepare Datasets](#prepare-datasets)
 - [Training](#training)
 - [Evaluation by synthetic data](#evaluation-by-synthetic-data)
 - [Perform decomposition on custom data](#perform-decomposition-on-custom-data)
 
+
+## Citation
+```text
+To be updated
+```
 
 ## Setup a Docker Environment
 ```bash
