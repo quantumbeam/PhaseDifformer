@@ -1,0 +1,158 @@
+Dataloader:
+  path_train: "Data/MP/Only90deg_under3phase/train.pkl"
+  path_val: "Data/MP/Only90deg_under3phase/val.pkl"
+  path_test: "Data/MP/cubic_2phase/test.pkl"
+  batch_size: 256
+Encoder:
+  encoder_name: "confidence_estimator"
+  with_guidance:
+    single:
+      d_model: 256
+      nhead: 8
+      num_layers: 4
+      dim_feedforward: 1024
+      dropout: 0.0
+      layer_norm_eps: 0.00001
+      positional_encoding_channels: [ 1, 256, 256 ]
+      positional_encoding_use_bn: False
+      positional_encoding_use_dropout: False
+      positional_encoding_drop_prob: 0.0
+      intensity_encoding_channels: [ 1, 256, 256 ]
+      intensity_encoding_use_bn: False
+      intensity_encoding_use_dropout: False
+      intensity_encoding_drop_prob: 0.0
+    mixed:
+      d_model: 256
+      nhead: 8
+      dim_feedforward: 1024
+      dropout: 0.0
+      layer_norm_eps: 0.00001
+      norm_first: True
+      layer_order_for_src1: ["c", "s", "c", "s", "c", "s" , "c", "s" , "s", "s"]
+      layer_order_for_src2: ["n", "n", "n", "n", "n", "n" , "n", "n" , "n", "n"]
+      positional_encoding_channels: [ 1, 256, 256 ]
+      positional_encoding_use_bn: False
+      positional_encoding_use_dropout: False
+      positional_encoding_drop_prob: 0.0
+      intensity_encoding_channels: [ 1, 256, 256 ]
+      intensity_encoding_use_bn: False
+      intensity_encoding_use_dropout: False
+      intensity_encoding_drop_prob: 0.0
+  without_guidance:
+    single:
+      d_model: 256
+      nhead: 8
+      num_layers: 8
+      dim_feedforward: 1024
+      dropout: 0.0
+      layer_norm_eps: 0.00001
+      positional_encoding_channels: [ 1, 256, 256 ]
+      positional_encoding_use_bn: False
+      positional_encoding_use_dropout: False
+      positional_encoding_drop_prob: 0.0
+      intensity_encoding_channels: [ 1, 256, 256 ]
+      intensity_encoding_use_bn: False
+      intensity_encoding_use_dropout: False
+      intensity_encoding_drop_prob: 0.0
+  confidence_estimator:
+    with_guidance_config: "result/phasedifformer/with_guidance/config_use.yaml"
+    with_guidance_model: "result/phasedifformer/with_guidance/version_0/model_checkpoint/best.ckpt"
+    without_guidance_config: "result/phasedifformer/without_guidance/config_use.yaml"
+    without_guidance_model: "result/phasedifformer/without_guidance/version_0/model_checkpoint/best.ckpt"
+    weight_method: "dot_product_sigmoid_hard_switch"
+    num_use: 5
+    accept_rate: 0.75
+    single:
+      d_model: 256
+      nhead: 8
+      num_layers: 4
+      dim_feedforward: 1024
+      dropout: 0.0
+      layer_norm_eps: 0.00001
+      positional_encoding_channels: [ 1, 256, 256 ]
+      positional_encoding_use_bn: False
+      positional_encoding_use_dropout: False
+      positional_encoding_drop_prob: 0.0
+      intensity_encoding_channels: [ 1, 256, 256 ]
+      intensity_encoding_use_bn: False
+      intensity_encoding_use_dropout: False
+      intensity_encoding_drop_prob: 0.0
+EncoderNoisy:
+  d_model: 256
+  nhead: 8
+  num_layers: 8
+  dim_feedforward: 1024
+  dropout: 0.0
+  layer_norm_eps: 0.00001
+  positional_encoding_channels: [ 1, 256, 256 ]
+  positional_encoding_use_bn: False
+  positional_encoding_use_dropout: False
+  positional_encoding_drop_prob: 0.0
+  intensity_encoding_channels: [ 1, 256, 256 ]
+  intensity_encoding_use_bn: False
+  intensity_encoding_use_dropout: False
+  intensity_encoding_drop_prob: 0.0
+InjectLayer:
+  d_model: 256
+  nhead: 8
+  num_layers: 10
+  dim_feedforward: 1024
+  dropout: 0.0
+  layer_norm_eps: 0.00001
+  norm_first: True
+  layer_order_for_src1: ["c", "s", "c", "s", "c", "s", "c", "s", "s", "s"]
+  layer_order_for_src2: ["n", "n", "n", "n", "n", "n", "n", "n", "n", "n"]
+  inject_mixed: True
+  inject_strategy: "CrossAttention"
+Decoder:
+  mlp_channels: [256, 256, 1]
+  mlp_use_bn: False
+  mlp_use_dropout: False
+  mlp_drop_prob: 0.0
+TimeEncoder:
+  channels: [1, 256, 256]
+  use_bn: False
+  use_dropout: False
+  drop_prob: 0.0
+Diffusion:
+  t_max: 1000
+  beta_min: 0.0001
+  beta_max: 0.02
+  method: "linear"
+  no_flip: False
+  components_min: 1
+  threshold: 0.01
+  noise_contained: True
+Optimizer:
+  mode: "constant"
+  Adam_beta1: 0.9
+  Adam_beta2: 0.999
+  Adam_eps: 1e-9
+  warmup_epochs: 426
+  eta_min_linear: 0.0
+  eta_min_cos: 0.0
+  max_epoch: 213000
+  lr: 0.00001
+  use_grad_norm_crip: True
+  grad_norm_clip_value: 1.0
+Loss:
+  mode: "mse_crossentropy"
+  perturbation_pos: 1.0
+  perturbation_pos_scale: 1.0
+  perturbation_intensity: 1.0
+  perturbation_intensity_scale: 0.1
+  delete_peak: 0
+  lambda_diffusion: 0.0
+  lambda_crossentropy: 0.005
+trainer:
+  accelerator: "cuda"
+  devices: [0]
+  max_epochs: 100
+  monitor: "val_loss_diffusion"
+  monitor_mode: "min"
+path_database:
+  train: "Data/MP_database/Only90deg/train.pkl"
+  val: "Data/MP_database/Only90deg/val.pkl"
+  test: "Data/MP_database/Only90deg/test.pkl"
+SavePath: "result/phasedifformer"
+ExpName: "confidence_estimator"
