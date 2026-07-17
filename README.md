@@ -14,7 +14,22 @@ Yusei Ito, Naoya Chiba*, Tatsunori Taniai*, Ryo Igarashi, Yuta Suzuki, Kotaro Sa
 
 ## Citation
 ```text
-To be updated
+@article{ito2026phasedifformer,
+  year      = {2026},
+  title     = {Enabling single-observation decomposition of multi-phase X-ray diffraction patterns via generative deep learning},
+  author    = {Yusei Ito and 
+               Naoya Chiba and
+               Tatsunori Taniai and
+               Ryo Igarashi and
+               Yuta Suzuki and
+               Kotaro Saito and 
+               Yoshitaka Ushiku and 
+               Kanta Ono},
+  journal   = {npj computational materials}, 
+  doi       = {10.1038/s41524-026-02087-w}, 
+  volume    = {12},
+  number    = {238}, 
+}
 ```
 
 ## Setup a Docker Environment
