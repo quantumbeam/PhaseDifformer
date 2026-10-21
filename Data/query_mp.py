@@ -62,7 +62,7 @@ def get_id_train_val_test(
 
 
 if __name__ == "__main__":
-    API_KEY = "sPEcL73JNS3dypIB7nqwdRQ25Npg9Duq"
+    API_KEY = "YOUR API KEY"
     len_min = 2
     len_max = 10
     site_max = 200
